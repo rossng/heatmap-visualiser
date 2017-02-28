@@ -42,7 +42,7 @@ public class ExtendedFlycam : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            _cameraPositionLocked = false;
+            _cameraPositionLocked = !_cameraPositionLocked;
         }
 
         if (_cameraPositionLocked) return;

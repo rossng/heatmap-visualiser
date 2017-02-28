@@ -3,11 +3,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using UnityEngine.UI;
 using Zenject;
 
 public class Gui : MonoBehaviour
 {
+    public static Gui Singleton;
     public GameObject IndicatorPrefab;
     public GameObject CurrentIndicator;
     public GameObject DevicePrefab;
@@ -15,6 +18,11 @@ public class Gui : MonoBehaviour
     public List<Device> Devices;
     public DeviceList DeviceDropdown;
     public Button AddDeviceButton;
+    public Text DateTimeText;
+    public Scrollbar TimeScrollbar;
+    public long RenderTimestamp = long.MaxValue;
+    public long OldestTimestamp = long.MaxValue;
+    public long NewestTimestamp = long.MinValue;
 
     public void AddDevice()
     {
@@ -28,6 +36,26 @@ public class Gui : MonoBehaviour
         ExtendedFlycam.UnlockCameraPosition();
         DeviceDropdown.SetInteractable(false);
         AddDeviceButton.interactable = false;
+    }
+
+    public void OnTimeScrollbarValueChanged(Scrollbar scrollbar)
+    {
+        RenderTimestamp = (long)(OldestTimestamp + scrollbar.value * (NewestTimestamp - OldestTimestamp));
+        DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+        DateTime currentValue = epoch.AddMilliseconds(RenderTimestamp);
+        DateTimeText.text = currentValue.ToString(CultureInfo.InvariantCulture);
+    }
+
+    private void Awake()
+    {
+        if (Singleton != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Singleton = this;
+        }
     }
 
     private void Start()
@@ -63,6 +91,15 @@ public class Gui : MonoBehaviour
                     Devices.RemoveAll(d => d.DeviceId == device.DeviceId);
                 }
             }
+        }
+        if (Devices.Count > 0)
+        {
+            OldestTimestamp = Devices.OrderBy(d => d.OldestTimestamp).First().OldestTimestamp;
+            NewestTimestamp = Devices.OrderByDescending(d => d.NewestTimestamp).First().NewestTimestamp;
+            RenderTimestamp = (long)(OldestTimestamp + TimeScrollbar.value * (NewestTimestamp - OldestTimestamp));
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime currentValue = epoch.AddMilliseconds(RenderTimestamp);
+            DateTimeText.text = currentValue.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

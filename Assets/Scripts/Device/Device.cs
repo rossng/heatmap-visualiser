@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using RestSharp;
 using UnityEngine.UI;
@@ -11,20 +13,35 @@ public class Device : MonoBehaviour
     public Text Text;
     public Renderer MeshRenderer;
     private HeatmapApi _api;
-    private DeviceInfo _deviceInfo;
+    private Gui _gui;
+    public readonly List<DeviceData> DeviceData = new List<DeviceData>();
+    public long OldestTimestamp = long.MaxValue;
+    public long NewestTimestamp = long.MinValue;
 
     private void Start()
     {
+        OldestTimestamp = long.MaxValue;
         _api = HeatmapApi.Singleton;
+        _gui = Gui.Singleton;
+        _api.RequestReadingsFrom(DeviceId, (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds - 100000L, OnDeviceHistoryReceived);
         StartCoroutine(UpdateDeviceDetails());
     }
 
     private void Update()
     {
-        if (_deviceInfo == null) return;
-
+        if (DeviceData == null) return;
+        var deviceData = DeviceData.ToList();
         // Set device colour
-        var sensorReading = _deviceInfo.data
+        if (deviceData.Count == 0) return;
+
+        var readingsAfterTimestamp = deviceData.OrderBy(d => d.time_stamp).Where(d => d.time_stamp >= _gui.RenderTimestamp).ToList();
+        DeviceData reading = readingsAfterTimestamp.FirstOrDefault();
+        if (!readingsAfterTimestamp.Any())
+        {
+            reading = deviceData.OrderBy(d => d.time_stamp).Last();
+        }
+
+        var sensorReading = reading.data
             .First(d => d.hardware_id.Contains("cpu")).sensor_info
             .First(s => s.tag.Contains("temp"));
 
@@ -62,13 +79,30 @@ public class Device : MonoBehaviour
         Text.text = string.Format("{0}: {1}", sensorReading.tag, sensorReading.value);
     }
 
-    private void OnDeviceInfoReceived(IRestResponse<DeviceInfo> response)
+    private void OnDeviceInfoReceived(IRestResponse<DeviceData> response)
     {
         Debug.LogFormat("Received response for device {0}", DeviceId);
-        _deviceInfo = response.Data;
+        // Thread-safe? Not really...
+        DeviceData.Add(response.Data);
+        if (response.Data.time_stamp > NewestTimestamp)
+        {
+            NewestTimestamp = response.Data.time_stamp;
+        }
     }
 
-    IEnumerator UpdateDeviceDetails()
+    private void OnDeviceHistoryReceived(IRestResponse<DeviceHistory> response)
+    {
+        Debug.LogFormat("Received history ({0} items) for device {1}", response.Data.data.Count, DeviceId);
+        DeviceData.AddRange(response.Data.data);
+
+        long oldestTimestamp = response.Data.data.OrderBy(d => d.time_stamp).First().time_stamp;
+        if (oldestTimestamp < OldestTimestamp && oldestTimestamp > 0)
+        {
+            OldestTimestamp = oldestTimestamp;
+        }
+    }
+
+    private IEnumerator UpdateDeviceDetails()
     {
         while (true)
         {
