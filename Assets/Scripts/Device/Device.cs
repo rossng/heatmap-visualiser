@@ -23,7 +23,7 @@ public class Device : MonoBehaviour
         OldestTimestamp = long.MaxValue;
         _api = HeatmapApi.Singleton;
         _gui = Gui.Singleton;
-        _api.RequestReadingsFrom(DeviceId, (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds - 100000L, OnDeviceHistoryReceived);
+        _api.RequestReadingsFrom(DeviceId, (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds - 50000000L, OnDeviceHistoryReceived);
         StartCoroutine(UpdateDeviceDetails());
     }
 

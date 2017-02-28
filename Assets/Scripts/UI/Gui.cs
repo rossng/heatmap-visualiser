@@ -97,6 +97,7 @@ public class Gui : MonoBehaviour
             OldestTimestamp = Devices.OrderBy(d => d.OldestTimestamp).First().OldestTimestamp;
             NewestTimestamp = Devices.OrderByDescending(d => d.NewestTimestamp).First().NewestTimestamp;
             RenderTimestamp = (long)(OldestTimestamp + TimeScrollbar.value * (NewestTimestamp - OldestTimestamp));
+            RenderTimestamp = Math.Max(RenderTimestamp, 0);
             DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             DateTime currentValue = epoch.AddMilliseconds(RenderTimestamp);
             DateTimeText.text = currentValue.ToString(CultureInfo.InvariantCulture);

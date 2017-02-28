@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139075668379662}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4364477744629638}
@@ -225,6 +225,8 @@ MonoBehaviour:
   DeviceId: 
   Text: {fileID: 114956016389827242}
   MeshRenderer: {fileID: 23068017465810264}
+  OldestTimestamp: 9223372036854775807
+  NewestTimestamp: -9223372036854775808
 --- !u!114 &114593400016764202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -754,7 +756,7 @@ ParticleSystem:
     size3D: 0
     rotation3D: 0
     gravityModifier:
-      scalar: 0
+      scalar: 0.01
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2530,7 +2532,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     minKillSpeed: 0
-    maxKillSpeed: 10000
+    maxKillSpeed: 100000
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
@@ -2968,7 +2970,7 @@ ParticleSystemRenderer:
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_VertexStreamMask: 27
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
