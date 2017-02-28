@@ -31,13 +31,32 @@ public class Device : MonoBehaviour
         var cpuTemperature = sensorReading.value;
 
         var cpuTemperatureLow = 20.0f;
-        var cpuTemperatureHigh = 120.0f;
+        var cpuTemperatureHigh = 95.0f;
         var cpuTemperatureClamped = Mathf.Clamp(cpuTemperature, cpuTemperatureLow, cpuTemperatureHigh);
 
-        var cpuTemperatureFraction = (cpuTemperatureClamped - cpuTemperatureLow) /
-                                         (cpuTemperatureHigh - cpuTemperatureLow);
+        var cpuTemperatureFraction = 0.3f - (0.3f * (cpuTemperatureClamped - cpuTemperatureLow) /
+                                     (cpuTemperatureHigh - cpuTemperatureLow));
 
-        MeshRenderer.material.color = Color.HSVToRGB(cpuTemperatureFraction, 1.0f, 1.0f);
+        var temperatureColour = Color.HSVToRGB(cpuTemperatureFraction, 1.0f, 1.0f);
+
+        MeshRenderer.material.color = temperatureColour;
+
+        // Set particle gradient
+        var particleSystem = GetComponentInChildren<ParticleSystem>();
+        GradientColorKey[] gradientColours = particleSystem.colorOverLifetime.color.gradient.colorKeys;
+        if (temperatureColour != gradientColours[0].color)
+        {
+            var newGradient = new Gradient();
+            newGradient.SetKeys(new GradientColorKey[]
+            {
+                new GradientColorKey(temperatureColour, gradientColours[0].time),
+                new GradientColorKey(gradientColours[1].color, gradientColours[1].time)
+            }, particleSystem.colorOverLifetime.color.gradient.alphaKeys);
+
+            ParticleSystem.ColorOverLifetimeModule colourModule;
+            colourModule = particleSystem.colorOverLifetime;
+            colourModule.color = newGradient;
+        }
 
         // Set device tooltip
         Text.text = string.Format("{0}: {1}", sensorReading.tag, sensorReading.value);

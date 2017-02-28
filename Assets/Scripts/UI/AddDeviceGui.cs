@@ -15,11 +15,11 @@ public class AddDeviceGui : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 150, 90), "Add Device");
+        GUI.Box(new Rect(10, 10, 300, 90), "Add Device");
 
-        _deviceId = GUI.TextField(new Rect(25, 40, 100, 30), _deviceId);
+        _deviceId = GUI.TextField(new Rect(25, 40, 250, 30), _deviceId);
 
-        if (GUI.Button(new Rect(25, 75, 80, 20), "Add"))
+        if (GUI.Button(new Rect(25, 75, 250, 20), "Add"))
         {
             var gameObject = Instantiate(DevicePrefab, CurrentIndicator.transform.position, Quaternion.identity);
             var device = gameObject.GetComponent<Device>();
