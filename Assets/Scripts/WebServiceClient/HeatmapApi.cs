@@ -18,13 +18,17 @@ public class HeatmapApi
     public T Execute<T>(RestRequest request) where T : new()
     {
         var client = new RestClient {BaseUrl = new Uri(_url) };
-
-        var response = client.Execute(request);
-
-        return new JsonDeserializer().Deserialize<T>(response);
+        var response = client.Execute<T>(request);
+        return response.Data;
     }
 
-    public Reading GetReading(long deviceId)
+    public void ExecuteAsync<T>(RestRequest request, Action<IRestResponse<T>> callback) where T : new()
+    {
+        var client = new RestClient { BaseUrl = new Uri(_url) };
+        client.ExecuteAsync(request, callback);
+    }
+
+    public void RequestDeviceInfo(string deviceId, Action<IRestResponse<DeviceInfo>> callback)
     {
         var request = new RestRequest
         {
@@ -32,6 +36,6 @@ public class HeatmapApi
             RootElement = "Reading"
         };
         request.AddParameter("device_id", deviceId, ParameterType.UrlSegment);
-        return Execute<Reading>(request);
+        ExecuteAsync(request, callback);
     }
 }

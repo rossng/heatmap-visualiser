@@ -1,0 +1,118 @@
+fileFormatVersion: 2
+guid: 3aaf4c875fe23264683da0ea9aebc7be
+timeCreated: 1488239444
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Camera
+    100002: desk-2
+    100004: //RootNode
+    100006: desk-2_MeshPart0
+    100008: desk-2_MeshPart1
+    100010: desk-2_MeshPart2
+    100012: desk-2_MeshPart3
+    100014: desk-2_MeshPart4
+    100016: desk-2_MeshPart5
+    100018: desk-2_MeshPart6
+    100020: Lamp
+    400000: Camera
+    400002: //RootNode
+    400004: desk-2
+    400006: desk-2_MeshPart0
+    400008: desk-2_MeshPart1
+    400010: desk-2_MeshPart2
+    400012: desk-2_MeshPart3
+    400014: desk-2_MeshPart4
+    400016: desk-2_MeshPart5
+    400018: desk-2_MeshPart6
+    400020: Lamp
+    2300000: desk-2_MeshPart0
+    2300002: desk-2_MeshPart1
+    2300004: desk-2_MeshPart2
+    2300006: desk-2_MeshPart3
+    2300008: desk-2_MeshPart4
+    2300010: desk-2_MeshPart5
+    2300012: desk-2_MeshPart6
+    3300000: desk-2_MeshPart0
+    3300002: desk-2_MeshPart1
+    3300004: desk-2_MeshPart2
+    3300006: desk-2_MeshPart3
+    3300008: desk-2_MeshPart4
+    3300010: desk-2_MeshPart5
+    3300012: desk-2_MeshPart6
+    4300000: desk-2_MeshPart0
+    4300002: desk-2_MeshPart1
+    4300004: desk-2_MeshPart2
+    4300006: desk-2_MeshPart3
+    4300008: desk-2_MeshPart4
+    4300010: desk-2_MeshPart5
+    4300012: desk-2_MeshPart6
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
