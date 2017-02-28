@@ -40,6 +40,15 @@ public class HeatmapApi : MonoBehaviour
         ExecuteAsync(request, callback);
     }
 
+    public void RequestDeviceList(Action<IRestResponse<List<DeviceId>>> callback)
+    {
+        var request = new RestRequest
+        {
+            Resource = "api/device"
+        };
+        ExecuteAsync(request, callback);
+    }
+
     private void Awake()
     {
         if (Singleton != null)

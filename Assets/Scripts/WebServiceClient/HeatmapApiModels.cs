@@ -22,3 +22,8 @@ public class DeviceInfo
     public string id { get; set; }
     public long time_stamp { get; set; }
 }
+
+public class DeviceId
+{
+    public string device_id { get; set; }
+}
