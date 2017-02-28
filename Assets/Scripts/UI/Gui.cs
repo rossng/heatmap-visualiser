@@ -13,6 +13,7 @@ public class Gui : MonoBehaviour
     public static Gui Singleton;
     public GameObject IndicatorPrefab;
     public GameObject CurrentIndicator;
+    public RaycastHit CurrentHit;
     public GameObject DevicePrefab;
     public ExtendedFlycam ExtendedFlycam;
     public List<Device> Devices;
@@ -33,6 +34,8 @@ public class Gui : MonoBehaviour
         var device = obj.GetComponent<Device>();
         Devices.Add(device);
         device.DeviceId = deviceId;
+        var particles = obj.GetComponentInChildren<ParticleSystem>();
+        particles.transform.LookAt(particles.transform.position + CurrentHit.normal);
         ExtendedFlycam.UnlockCameraPosition();
         DeviceDropdown.SetInteractable(false);
         AddDeviceButton.interactable = false;
@@ -73,6 +76,7 @@ public class Gui : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Destroy(CurrentIndicator);
+                CurrentHit = hit;
                 CurrentIndicator = Instantiate(IndicatorPrefab, hit.point, Quaternion.identity);
                 ExtendedFlycam.LockCameraPosition();
                 DeviceDropdown.SetInteractable(true);
