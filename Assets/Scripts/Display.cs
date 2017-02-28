@@ -23,7 +23,6 @@ public class Display : MonoBehaviour
 
     public void OnDeviceInfoReceived(IRestResponse<DeviceInfo> deviceInfo)
     {
-        _text.text = deviceInfo.Data.data[0].hardware_info;
     }
 
     public void Start()

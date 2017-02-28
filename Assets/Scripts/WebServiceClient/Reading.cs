@@ -11,12 +11,14 @@ public class SensorInfo
 
 public class Reading
 {
-    public long time { get; set; }
-    public string hardware_info { get; set; }
+    public string hardware_id { get; set; }
     public List<SensorInfo> sensor_info { get; set; }
 }
 
 public class DeviceInfo
 {
     public List<Reading> data { get; set; }
+    public string device_id { get; set; }
+    public string id { get; set; }
+    public long time_stamp { get; set; }
 }

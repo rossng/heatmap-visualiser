@@ -5,9 +5,10 @@ using UnityEngine;
 using RestSharp;
 using RestSharp.Deserializers;
 
-public class HeatmapApi
+public class HeatmapApi : MonoBehaviour
 {
     static string _url = "http://34.251.68.107:5000";
+    public static HeatmapApi Singleton;
 
     public HeatmapApi()
     {
@@ -37,5 +38,17 @@ public class HeatmapApi
         };
         request.AddParameter("device_id", deviceId, ParameterType.UrlSegment);
         ExecuteAsync(request, callback);
+    }
+
+    private void Awake()
+    {
+        if (Singleton != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Singleton = this;
+        }
     }
 }

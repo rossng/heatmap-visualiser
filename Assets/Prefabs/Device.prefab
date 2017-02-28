@@ -193,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeviceId: 
   Text: {fileID: 114956016389827242}
+  MeshRenderer: {fileID: 23068017465810264}
 --- !u!114 &114593400016764202
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Zenject;
 
 public class AddDeviceGui : MonoBehaviour
 {
@@ -19,8 +21,8 @@ public class AddDeviceGui : MonoBehaviour
 
         if (GUI.Button(new Rect(25, 75, 80, 20), "Add"))
         {
-            GameObject gameObject = Instantiate(DevicePrefab, CurrentIndicator.transform.position, Quaternion.identity);
-            Device device = gameObject.GetComponent<Device>();
+            var gameObject = Instantiate(DevicePrefab, CurrentIndicator.transform.position, Quaternion.identity);
+            var device = gameObject.GetComponent<Device>();
             Devices.Add(device);
             device.DeviceId = _deviceId;
             _deviceId = "";
